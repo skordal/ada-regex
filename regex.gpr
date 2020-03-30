@@ -1,0 +1,26 @@
+--  Ada regular expression library
+--  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  Report bugs and issues on <https://github.com/skordal/ada-regex>
+
+project Regex is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+
+--   for Exec_Dir use "bin";
+--   for Main use ("testapp.adb");
+
+   for Library_Dir use "lib";
+   for Library_Name use "ada-regex";
+   for Library_Version use "libada-regex.so.0.1.0";
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnaty", "-gnatyM120", "-gnata", "-gnatwa", "-gnat2012", "-Og", "-g3");
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("Ada") use ("-Es");
+   end Binder;
+end Regex;
+
+
