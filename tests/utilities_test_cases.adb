@@ -2,8 +2,6 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
-with Ada.Text_IO;
-
 with AUnit.Assertions;
 use AUnit.Assertions;
 
@@ -16,9 +14,12 @@ package body Utilities_Test_Cases is
    procedure Test_Empty_Set (T : in out Test_Fixture) is
       pragma Unreferenced (T);
 
-      Test_Set : Integer_Sets.Sorted_Set := Integer_Sets.Empty_Set;
+      Test_Set : constant Integer_Sets.Sorted_Set := Integer_Sets.Empty_Set;
    begin
       Assert (Test_Set.Length = 0, "Length of an empty set is not 0!");
+      for Value of Test_Set loop
+         Assert (False, "It should not be possible to iterate through an empty set");
+      end loop;
    end Test_Empty_Set;
 
    procedure Test_Basic_Ops (T : in out Test_Fixture) is
