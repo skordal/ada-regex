@@ -2,8 +2,9 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
-with Ada.Finalization;
 with Ada.Iterator_Interfaces;
+
+private with Ada.Finalization;
 private with Ada.Unchecked_Deallocation;
 
 --  Simple ordered set designed for use with few items. Inserting identical
@@ -65,7 +66,7 @@ package Utilities.Sorted_Sets is
    --  Indexing:
    type Constant_Reference_Type (Item : not null access constant Element_Type) is private
       with Implicit_Dereference => Item;
-   function Constant_Reference (This : aliased in Sorted_Set; Position : in Cursor)
+   function Constant_Reference (This : in Sorted_Set; Position : in Cursor)
       return Constant_Reference_Type;
 
 private

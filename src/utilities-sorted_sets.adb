@@ -2,7 +2,6 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
-with Ada.Text_IO;
 with Ada.Containers.Generic_Array_Sort;
 
 package body Utilities.Sorted_Sets is
@@ -119,7 +118,7 @@ package body Utilities.Sorted_Sets is
       return This.Items (Position.Index);
    end Element_Value;
 
-   function Constant_Reference (This : aliased in Sorted_Set; Position : in Cursor) return Constant_Reference_Type is
+   function Constant_Reference (This : in Sorted_Set; Position : in Cursor) return Constant_Reference_Type is
       Retval : Constant_Reference_Type (Item => This.Items (Position.Index)'Access);
    begin
       return Retval;
