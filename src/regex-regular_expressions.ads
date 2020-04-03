@@ -4,9 +4,9 @@
 
 with Ada.Finalization;
 private with Ada.Containers.Vectors;
-private with Utilities.Sorted_Sets;
+private with Regex.Utilities.Sorted_Sets;
 
-package Regular_Expressions is
+package Regex.Regular_Expressions is
 
    --  Regex engine exceptions:
    Syntax_Error : exception;
@@ -120,5 +120,5 @@ private
    --  Compiles a regular expression into a state machine:
    procedure Compile (Input : in String; Output : in out Regular_Expression);
 
-end Regular_Expressions;
+end Regex.Regular_Expressions;
 

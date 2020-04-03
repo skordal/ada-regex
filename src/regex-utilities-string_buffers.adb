@@ -2,7 +2,7 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
-package body Utilities.String_Buffers is
+package body Regex.Utilities.String_Buffers is
 
    function Create (Input : in String) return String_Buffer is
    begin
@@ -40,5 +40,5 @@ package body Utilities.String_Buffers is
       return This.Index;
    end Get_Index;
 
-end Utilities.String_Buffers;
+end Regex.Utilities.String_Buffers;
 

@@ -5,9 +5,9 @@
 with Ada.Text_IO;
 with Ada.Unchecked_Deallocation;
 
-with Utilities.String_Buffers;
+with Regex.Utilities.String_Buffers;
 
-package body Regular_Expressions is
+package body Regex.Regular_Expressions is
 
    function Create (Input : in String) return Regular_Expression is
    begin
@@ -298,5 +298,5 @@ package body Regular_Expressions is
 
    procedure Compile (Input : in String; Output : in out Regular_Expression) is separate;
 
-end Regular_Expressions;
+end Regex.Regular_Expressions;
 

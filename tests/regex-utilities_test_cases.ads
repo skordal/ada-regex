@@ -4,7 +4,9 @@
 
 with AUnit.Test_Fixtures;
 
-package Utilities_Test_Cases is
+--  The Regex.Utilities package is a private subpackage of Regex, thus
+--  this test package must also be a subpackage of Regex.
+package Regex.Utilities_Test_Cases is
 
    type Test_Fixture is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
@@ -13,5 +15,5 @@ package Utilities_Test_Cases is
    procedure Test_Assignment (T : in out Test_Fixture);
    procedure Test_Ordering   (T : in out Test_Fixture);
 
-end Utilities_Test_Cases;
+end Regex.Utilities_Test_Cases;
 

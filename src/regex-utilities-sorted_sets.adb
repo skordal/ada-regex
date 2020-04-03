@@ -4,7 +4,7 @@
 
 with Ada.Containers.Generic_Array_Sort;
 
-package body Utilities.Sorted_Sets is
+package body Regex.Utilities.Sorted_Sets is
 
    function To_Set (Item : in Element_Type) return Sorted_Set is
       Retval : Sorted_Set := Empty_Set;
@@ -187,5 +187,5 @@ package body Utilities.Sorted_Sets is
       return Retval;
    end Next;
 
-end Utilities.Sorted_Sets;
+end Regex.Utilities.Sorted_Sets;
 

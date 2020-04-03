@@ -5,8 +5,8 @@
 with AUnit.Assertions;
 use  AUnit.Assertions;
 
-with Regular_Expressions;
-use Regular_Expressions;
+with Regex.Regular_Expressions;
+use Regex.Regular_Expressions;
 
 package body Regex_Test_Cases is
 

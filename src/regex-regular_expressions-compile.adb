@@ -2,7 +2,7 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
-separate (Regular_Expressions) procedure Compile (Input : in String; Output : in out Regular_Expression) is
+separate (Regex.Regular_Expressions) procedure Compile (Input : in String; Output : in out Regular_Expression) is
    use Utilities.String_Buffers;
    Buffer : String_Buffer := Create (Input);
 

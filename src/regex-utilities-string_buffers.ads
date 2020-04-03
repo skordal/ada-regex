@@ -4,7 +4,7 @@
 
 private with Ada.Strings.Unbounded;
 
-package Utilities.String_Buffers is
+package Regex.Utilities.String_Buffers is
 
    --  String buffer type:
    type String_Buffer is tagged limited private;
@@ -34,5 +34,5 @@ private
       Index  : Integer;
    end record;
 
-end Utilities.String_Buffers;
+end Regex.Utilities.String_Buffers;
 

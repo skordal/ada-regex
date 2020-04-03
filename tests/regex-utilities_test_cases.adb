@@ -5,11 +5,11 @@
 with AUnit.Assertions;
 use AUnit.Assertions;
 
-with Utilities.Sorted_Sets;
+with Regex.Utilities.Sorted_Sets;
 
-package body Utilities_Test_Cases is
+package body Regex.Utilities_Test_Cases is
 
-   package Integer_Sets is new Utilities.Sorted_Sets (Element_Type => Integer);
+   package Integer_Sets is new Regex.Utilities.Sorted_Sets (Element_Type => Integer);
 
    procedure Test_Empty_Set (T : in out Test_Fixture) is
       pragma Unreferenced (T);
@@ -88,5 +88,5 @@ package body Utilities_Test_Cases is
       end;
    end Test_Ordering;
 
-end Utilities_Test_Cases;
+end Regex.Utilities_Test_Cases;
 

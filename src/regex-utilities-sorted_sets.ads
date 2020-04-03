@@ -14,7 +14,7 @@ generic
    type Element_Type is private;
    with function "=" (Left, Right : in Element_Type) return Boolean is <>;
    with function "<" (Left, Right : in Element_Type) return Boolean is <>;
-package Utilities.Sorted_Sets is
+package Regex.Utilities.Sorted_Sets is
 
    --  Sorted set object.
    type Sorted_Set is tagged private with
@@ -105,5 +105,5 @@ private
 
    type Constant_Reference_Type (Item : not null access constant Element_Type) is null record;
 
-end Utilities.Sorted_Sets;
+end Regex.Utilities.Sorted_Sets;
 
