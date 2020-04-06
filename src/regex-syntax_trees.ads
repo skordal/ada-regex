@@ -6,19 +6,23 @@ with Regex.Utilities.Sorted_Sets;
 
 package Regex.Syntax_Trees is
 
-   type Syntax_Tree_Node;
+   --  Possible syntax tree node types:
+   type Syntax_Tree_Node_Type is (
+      Acceptance,       --  Acceptance node, indicates the current node is a possible end-node
+      Single_Character, --  Node representing a single character input
+      Alternation,      --  Node representing an alternation operator, '|'
+      Concatenation,    --  Node representing a concatenation of two subtrees
+      Kleene_Star);     --  Node representing the Kleene star/wildcard operator, '*'
+
+   type Syntax_Tree_Node (Node_Type : Syntax_Tree_Node_Type);
    type Syntax_Tree_Node_Access is access all Syntax_Tree_Node;
 
+   --  Comparison function, comparing nodes based on their IDs:
    function "<" (Left, Right : in Syntax_Tree_Node_Access) return Boolean;
    package Syntax_Tree_Node_Sets is new Utilities.Sorted_Sets (
       Element_Type => Syntax_Tree_Node_Access);
 
-   type Syntax_Tree_Node_Type is (
-      Acceptance,
-      Single_Character,
-      Alternation,
-      Concatenation,
-      Kleene_Star);
+   --  Syntax tree node object:
    type Syntax_Tree_Node (Node_Type : Syntax_Tree_Node_Type) is record
       Left_Child, Right_Child : Syntax_Tree_Node_Access;
       Id : Natural := 0;
