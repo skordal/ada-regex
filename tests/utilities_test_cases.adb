@@ -7,7 +7,7 @@ use AUnit.Assertions;
 
 with Regex.Utilities.Sorted_Sets;
 
-package body Regex.Utilities_Test_Cases is
+package body Utilities_Test_Cases is
 
    package Integer_Sets is new Regex.Utilities.Sorted_Sets (Element_Type => Integer);
 
@@ -88,5 +88,5 @@ package body Regex.Utilities_Test_Cases is
       end;
    end Test_Ordering;
 
-end Regex.Utilities_Test_Cases;
+end Utilities_Test_Cases;
 
