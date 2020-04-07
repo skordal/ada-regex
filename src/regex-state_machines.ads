@@ -25,6 +25,7 @@ package Regex.State_Machines is
       Syntax_Tree_Nodes : Regex.Syntax_Trees.Syntax_Tree_Node_Sets.Sorted_Set;
       --  Outgoing transitions from this state:
       Transitions       : State_Machine_Transition_Vectors.Vector;
+
       Marked, Accepting : Boolean := False;
    end record;
    package State_Machine_State_Vectors is new Ada.Containers.Vectors (

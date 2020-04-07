@@ -20,18 +20,9 @@ package Regex.Regular_Expressions is
    --  Checks of a string matches a regular expression:
    function Matches (This : in Regular_Expression; Query : in String) return Boolean;
 
-   --  Prints the parse tree for the regular expression:
-   procedure Print_Syntax_Tree (This : in Regular_Expression);
-
-   --  Prints the state machine for the regular expression:
-   procedure Print_State_Machine (This : in Regular_Expression);
-
 private
    use Regex.State_Machines;
    use Regex.Syntax_Trees;
-
-   --  Prints the contents of a state machine state:
-   procedure Print_State (This : in State_Machine_State);
 
    --  Complete regular expression object type:
    type Regular_Expression is new Ada.Finalization.Limited_Controlled with record
