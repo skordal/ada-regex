@@ -127,15 +127,6 @@ package body Regex.Regular_Expressions is
       end loop;
    end Print_State_Machine;
 
-   function Create_State (Syntax_Tree_Nodes : in Syntax_Tree_Node_Sets.Sorted_Set) return State_Machine_State_Access is
-      Retval : constant State_Machine_State_Access := new State_Machine_State'(
-         Syntax_Tree_Nodes => Syntax_Tree_Nodes,
-         Transitions => State_Machine_Transition_Vectors.Empty_Vector,
-         others => False);
-   begin
-      return Retval;
-   end Create_State;
-
    procedure Print_State (This : in State_Machine_State) is
       use Ada.Text_IO;
    begin
