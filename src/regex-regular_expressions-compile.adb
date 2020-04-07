@@ -124,9 +124,15 @@ separate (Regex.Regular_Expressions) procedure Compile (Input : in String; Outpu
       end if;
 
       declare
-         Retval : constant Syntax_Tree_Node_Access := Create_Node (Single_Character,
-            Output.Get_Next_Node_Id, Char => Buffer.Get_Next);
+         Char   : constant Character := Buffer.Get_Next;
+         Retval : constant Syntax_Tree_Node_Access := Create_Node (
+            (if Char = '.' then Any_Character else Single_Character),
+            Output.Get_Next_Node_Id);
       begin
+         if Retval.Node_Type = Single_Character then
+            Retval.Char := Char;
+         end if;
+
          return Retval;
       end;
    end Parse_Element;
@@ -213,7 +219,8 @@ begin
                      Output.State_Machine_States.Append (Target_State);
                   end if;
 
-                  Unmarked_State.Transitions.Append ((Symbol, Target_State));
+                  Unmarked_State.Transitions.Append (Create_Transition_On_Character (
+                     Input_Char => Symbol, Target_State => Target_State));
                end;
             end loop;
          end;

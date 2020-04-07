@@ -9,7 +9,8 @@ private with Regex.State_Machines;
 package Regex.Regular_Expressions is
 
    --  Regex engine exceptions:
-   Syntax_Error : exception;
+   Syntax_Error        : exception;
+   Unsupported_Feature : exception;
 
    --  Regular expression object:
    type Regular_Expression is tagged limited private;

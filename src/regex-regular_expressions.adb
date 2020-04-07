@@ -23,11 +23,20 @@ package body Regex.Regular_Expressions is
             Transition_Found : Boolean := False;
          begin
             Find_Transition : for Transition of Current_State.Transitions loop
-               if Transition.Input_Symbol = Symbol then
-                  Current_State := Transition.Target_State;
-                  Transition_Found := True;
-                  exit Find_Transition;
-               end if;
+               case Transition.Transition_On.Symbol_Type is
+                  when Single_Character =>
+                     if Transition.Transition_On.Char = Symbol then
+                        Current_State := Transition.Target_State;
+                        Transition_Found := True;
+                        exit Find_Transition;
+                     end if;
+                  when Any_Character =>
+                     raise Unsupported_Feature
+                        with "the any-character operator '.' is not yet supported by the regex matcher";
+                  when Character_Range =>
+                     raise Unsupported_Feature
+                        with "character ranges are not yet supported by the regex matcher";
+               end case;
             end loop Find_Transition;
 
             if not Transition_Found then

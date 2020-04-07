@@ -49,7 +49,7 @@ package body Regex.Syntax_Trees is
       case Node.Node_Type is
          when Kleene_Star =>
             return True;
-         when Single_Character | Acceptance =>
+         when Single_Character | Any_Character | Acceptance =>
             return False;
          when Alternation =>
             return Nullable (Node.Left_Child) or Nullable (Node.Right_Child);
@@ -75,7 +75,7 @@ package body Regex.Syntax_Trees is
             end if;
          when Alternation =>
             Retval := Firstpos (Node.Left_Child) & Firstpos (Node.Right_Child);
-         when Single_Character | Acceptance =>
+         when Single_Character | Any_Character | Acceptance =>
             Retval := To_Set (Node);
       end case;
 
@@ -91,7 +91,7 @@ package body Regex.Syntax_Trees is
       case Node.Node_Type is
          when Kleene_Star =>
             Retval := Lastpos (Node.Left_Child);
-         when Single_Character | Acceptance =>
+         when Single_Character | Any_Character | Acceptance =>
             Retval := To_Set (Node);
          when Concatenation =>
             if Nullable (Node.Right_Child) then

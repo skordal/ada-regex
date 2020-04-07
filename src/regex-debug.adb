@@ -43,6 +43,15 @@ package body Regex.Debug is
                Put (", followpos = ");
                Print_Set (Node.Followpos);
                New_Line;
+            when Any_Character =>
+               Put ("any character, nullable = " & Boolean'Image (Nullable (Node))
+                  & ", firstpos = ");
+               Print_Set (Firstpos (Node));
+               Put (", lastpos = ");
+               Print_Set (Lastpos (Node));
+               Put (", followpos = ");
+               Print_Set (Node.Followpos);
+               New_Line;
             when Alternation =>
                Put ("alternation '|', nullable = " & Boolean'Image (Nullable (Node))
                   & ", firstpos = ");
@@ -95,6 +104,7 @@ package body Regex.Debug is
 
    procedure Print_State (State : in Regex.State_Machines.State_Machine_State) is
       use Ada.Text_IO;
+      use Regex.State_Machines;
    begin
       Put ("State machine node for {");
       for Node of State.Syntax_Tree_Nodes loop
@@ -103,11 +113,16 @@ package body Regex.Debug is
       Put_Line ("} (accepting = " & Boolean'Image (State.Accepting) & ")");
 
       for Transition of State.Transitions loop
-         Put ("   transition to on " & Character'Image (Transition.Input_Symbol) & " to {");
-         for Node of Transition.Target_State.Syntax_Tree_Nodes loop
-            Put (Natural'Image (Node.Id) & ", ");
-         end loop;
-         Put_Line ("}");
+         case Transition.Transition_On.Symbol_Type is
+            when Single_Character =>
+               Put ("   transition on " & Character'Image (Transition.Transition_On.Char) & " to {");
+               for Node of Transition.Target_State.Syntax_Tree_Nodes loop
+                  Put (Natural'Image (Node.Id) & ", ");
+               end loop;
+               Put_Line ("}");
+            when others =>
+               Put ("   unsupported transition");
+         end case;
       end loop;
    end Print_State;
 
