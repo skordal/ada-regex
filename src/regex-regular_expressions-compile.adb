@@ -179,7 +179,7 @@ begin
          --  Mark state:
          Unmarked_State.Marked := True;
          declare
-            package Input_Symbol_Sets is new Utilities.Sorted_Sets (Element_Type => Character);
+            package Input_Symbol_Sets is new Utilities.Sorted_Sets (Element_Type => Input_Symbol_Access);
             use Input_Symbol_Sets;
 
             Input_Symbols : Sorted_Set := Empty_Set;
@@ -187,7 +187,9 @@ begin
             --  Find all input symbols for this state and determine if it is an accepting state:
             for Syntax_Node of Unmarked_State.Syntax_Tree_Nodes loop
                if Syntax_Node.Node_Type = Single_Character then
-                  Input_Symbols.Add (Syntax_Node.Char);
+                  Input_Symbols.Add (new Input_Symbol'(Symbol_Type => Single_Character, Char => Syntax_Node.Char));
+               elsif Syntax_Node.Node_Type = Any_Character then
+                  Input_Symbols.Add (new Input_Symbol'(Symbol_Type => Any_Character));
                elsif Syntax_Node.Node_Type = Acceptance then
                   Unmarked_State.Accepting := True;
                end if;
@@ -201,8 +203,14 @@ begin
                   Target_State : State_Machine_State_Access := null;
                begin
                   for Syntax_Node of Unmarked_State.Syntax_Tree_Nodes loop
-                     if Syntax_Node.Node_Type = Single_Character and then Syntax_Node.Char = Symbol then
-                        Target_State_Set.Add (Syntax_Node.Followpos);
+                     if Symbol.Symbol_Type = Single_Character then
+                        if Syntax_Node.Node_Type = Single_Character and then Syntax_Node.Char = Symbol.Char then
+                           Target_State_Set.Add (Syntax_Node.Followpos);
+                        end if;
+                     elsif Symbol.Symbol_Type = Any_Character then
+                        if Syntax_Node.Node_Type = Any_Character then
+                           Target_State_Set.Add (Syntax_Node.Followpos);
+                        end if;
                      end if;
                   end loop;
 
@@ -219,8 +227,7 @@ begin
                      Output.State_Machine_States.Append (Target_State);
                   end if;
 
-                  Unmarked_State.Transitions.Append (Create_Transition_On_Character (
-                     Input_Char => Symbol, Target_State => Target_State));
+                  Unmarked_State.Transitions.Append (Create_Transition_On_Symbol (Clone (Symbol), Target_State));
                end;
             end loop;
          end;

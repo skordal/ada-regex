@@ -9,7 +9,7 @@ with Regex.Syntax_Trees;
 package Regex.State_Machines is
 
    --  Input symbol type:
-   type Input_Symbol_Type is (Single_Character, Any_Character, Character_Range);
+   type Input_Symbol_Type is (Single_Character, Any_Character);
    type Input_Symbol (Symbol_Type : Input_Symbol_Type) is record
       case Symbol_Type is
          when Single_Character =>
@@ -19,6 +19,13 @@ package Regex.State_Machines is
       end case;
    end record;
    type Input_Symbol_Access is access all Input_Symbol;
+
+   --  Clones an Input_Symbol object:
+   function Clone (Object : in Input_Symbol_Access) return Input_Symbol_Access
+      with Pre => Object /= null;
+
+   --  Operators allowing Input_Symbols to be used in Sorted_Sets:
+   function "<" (Left, Right : in Input_Symbol_Access) return Boolean;
 
    --  State machine forward declarations:
    type State_Machine_State;
@@ -30,9 +37,10 @@ package Regex.State_Machines is
       Target_State  : State_Machine_State_Access;
    end record;
 
-   function Create_Transition_On_Character (Input_Char : in Character;
-                                            Target_State : in State_Machine_State_Access)
-      return State_Machine_Transition;
+   function Create_Transition_On_Symbol (Input_Symbol : in Input_Symbol_Access;
+                                         Target_State : in State_Machine_State_Access)
+      return State_Machine_Transition
+      with Pre => (Input_Symbol /= null and Target_State /= null);
 
    overriding procedure Adjust   (This : in out State_Machine_Transition);
    overriding procedure Finalize (This : in out State_Machine_Transition);

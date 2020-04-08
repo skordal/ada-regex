@@ -28,15 +28,13 @@ package body Regex.Regular_Expressions is
                      if Transition.Transition_On.Char = Symbol then
                         Current_State := Transition.Target_State;
                         Transition_Found := True;
-                        exit Find_Transition;
                      end if;
                   when Any_Character =>
-                     raise Unsupported_Feature
-                        with "the any-character operator '.' is not yet supported by the regex matcher";
-                  when Character_Range =>
-                     raise Unsupported_Feature
-                        with "character ranges are not yet supported by the regex matcher";
+                     Current_State := Transition.Target_State;
+                     Transition_Found := True;
                end case;
+
+               exit Find_Transition when Transition_Found;
             end loop Find_Transition;
 
             if not Transition_Found then

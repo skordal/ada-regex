@@ -21,6 +21,10 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Alternation'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("dragon-book",
          Regex_Test_Cases.Test_Dragon_Example'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("any-character-single",
+         Regex_Test_Cases.Test_Any_Char_Single'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("any-character-optional",
+         Regex_Test_Cases.Test_Any_Char_Optional'Access));
 
       return Retval;
    end Test_Suite;

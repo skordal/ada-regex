@@ -62,5 +62,24 @@ package body Regex_Test_Cases is
       Assert (Test_Expr.Matches ("bbbbabb"), "regex does not match correct input string 'bbbbabb'");
    end Test_Dragon_Example;
 
+   procedure Test_Any_Char_Single   (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("a.c");
+   begin
+      Assert (not Test_Expr.Matches (""), "regex matches the empty string");
+      Assert (not Test_Expr.Matches ("ac"), "regex matches incorrect input string 'ac'");
+      Assert (Test_Expr.Matches ("abc"), "regex does not match correct input string 'abc'");
+   end Test_Any_Char_Single;
+
+   procedure Test_Any_Char_Optional (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create (".*");
+   begin
+      Assert (Test_Expr.Matches (""), "regex does not match the empty string");
+      Assert (Test_Expr.Matches ("abc"), "regex does not match correct input string 'abc'");
+   end Test_Any_Char_Optional;
+
 end Regex_Test_Cases;
 
