@@ -120,8 +120,12 @@ package body Regex.Debug is
                   Put (Natural'Image (Node.Id) & ", ");
                end loop;
                Put_Line ("}");
-            when others =>
-               Put ("   unsupported transition");
+            when Any_Character =>
+               Put ("   transition on any character to {");
+               for Node of Transition.Target_State.Syntax_Tree_Nodes loop
+                  Put (Natural'Image (Node.Id) & ", ");
+               end loop;
+               Put_Line ("}");
          end case;
       end loop;
    end Print_State;
