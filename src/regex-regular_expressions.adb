@@ -46,6 +46,18 @@ package body Regex.Regular_Expressions is
       return Current_State.Accepting;
    end Matches;
 
+   function Get_Syntax_Tree (This : in Regular_Expression)
+      return Regex.Syntax_Trees.Syntax_Tree_Node_Access is
+   begin
+      return This.Syntax_Tree;
+   end Get_Syntax_Tree;
+
+   function Get_State_Machine (This : in Regular_Expression)
+      return Regex.State_Machines.State_Machine_State_Vectors.Vector is
+   begin
+      return This.State_Machine_States;
+   end Get_State_Machine;
+
    procedure Finalize (This : in out Regular_Expression) is
       procedure Free_State is new Ada.Unchecked_Deallocation (State_Machine_State, State_Machine_State_Access);
    begin
