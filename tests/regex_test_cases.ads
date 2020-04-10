@@ -17,6 +17,7 @@ package Regex_Test_Cases is
    procedure Test_Any_Char_Single      (T : in out Test_Fixture);
    procedure Test_Any_Char_Optional    (T : in out Test_Fixture);
    procedure Test_Any_Alternate        (T : in out Test_Fixture);
+   procedure Test_Escape_Seqs          (T : in out Test_Fixture);
 
 end Regex_Test_Cases;
 

@@ -19,7 +19,7 @@ package body Regex_Test_Cases is
       Assert (Test_Expr.Matches ("a"), "regex does not match the correct input string 'a'");
    end Test_Single_Character;
 
-   procedure Test_Kleene_Closure   (T : in out Test_Fixture) is
+   procedure Test_Kleene_Closure (T : in out Test_Fixture) is
       pragma Unreferenced (T);
       Test_Expr : constant Regular_Expression := Create ("a*");
    begin
@@ -30,7 +30,7 @@ package body Regex_Test_Cases is
       Assert (not Test_Expr.Matches ("bbsa"), "regex matches incorrect input string 'bbsa'");
    end Test_Kleene_Closure;
 
-   procedure Test_Concatenation    (T : in out Test_Fixture) is
+   procedure Test_Concatenation (T : in out Test_Fixture) is
       pragma Unreferenced (T);
       Test_Expr : constant Regular_Expression := Create ("ab");
    begin
@@ -63,7 +63,7 @@ package body Regex_Test_Cases is
       Assert (not Test_Expr.Matches ("e"), "regex matches incorrect input string 'e'");
    end Test_Alternation_Multiple;
 
-   procedure Test_Dragon_Example   (T : in out Test_Fixture) is
+   procedure Test_Dragon_Example (T : in out Test_Fixture) is
       pragma Unreferenced (T);
       --  Pattern borrowed from the chapter on regular expression parsing in the "Dragon Book":
       Test_Expr : constant Regular_Expression := Create ("(a|b)*abb");
@@ -74,7 +74,7 @@ package body Regex_Test_Cases is
       Assert (Test_Expr.Matches ("bbbbabb"), "regex does not match correct input string 'bbbbabb'");
    end Test_Dragon_Example;
 
-   procedure Test_Any_Char_Single   (T : in out Test_Fixture) is
+   procedure Test_Any_Char_Single (T : in out Test_Fixture) is
       pragma Unreferenced (T);
 
       Test_Expr : constant Regular_Expression := Create ("a.c");
@@ -104,6 +104,23 @@ package body Regex_Test_Cases is
       Assert (Test_Expr.Matches ("fbc"), "regex does not match correct input string 'fbc'");
       Assert (not Test_Expr.Matches ("bc"), "regex matches incorrect input string 'bc'");
    end Test_Any_Alternate;
+
+   procedure Test_Escape_Seqs (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\|");
+   begin
+      Assert (not Test_Expr.Matches (""), "regex matches the empty string");
+      Assert (Test_Expr.Matches ("."), "regex does not match correct input string '.'");
+      Assert (Test_Expr.Matches ("["), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches ("]"), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches ("("), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches (")"), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches ("*"), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches ("+"), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches ("\"), "regex does not match correct input string '['");
+      Assert (Test_Expr.Matches ("|"), "regex does not match correct input string '['");
+   end Test_Escape_Seqs;
 
 end Regex_Test_Cases;
 

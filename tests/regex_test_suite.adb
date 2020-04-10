@@ -29,6 +29,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Any_Char_Optional'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("any-alternate",
          Regex_Test_Cases.Test_Any_Alternate'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("escaped-char",
+         Regex_Test_Cases.Test_Escape_Seqs'Access));
 
       return Retval;
    end Test_Suite;

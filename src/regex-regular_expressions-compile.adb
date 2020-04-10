@@ -112,6 +112,7 @@ separate (Regex.Regular_Expressions) procedure Compile (Input : in String; Outpu
    end Parse_Single_Expression;
 
    function Parse_Element return Syntax_Tree_Node_Access is
+      Escaped : Boolean := False;
    begin
       if Buffer.At_End or else (
             Buffer.Peek = '(' or
@@ -123,10 +124,34 @@ separate (Regex.Regular_Expressions) procedure Compile (Input : in String; Outpu
          return null;
       end if;
 
+      --  Check for escaped character:
+      if Buffer.Peek = '\' then
+         Buffer.Discard_Next;
+
+         if Buffer.At_End then
+            raise Syntax_Error with "at index " & Natural'Image (Buffer.Get_Index)
+               & ": expected character after '\'";
+         elsif Buffer.Peek /= '(' and
+               Buffer.Peek /= ')' and
+               Buffer.Peek /= '[' and
+               Buffer.Peek /= ']' and
+               Buffer.Peek /= '*' and
+               Buffer.Peek /= '.' and
+               Buffer.Peek /= '|' and
+               Buffer.Peek /= '\' and
+               Buffer.Peek /= '+'
+         then
+            raise Syntax_Error with "at index " & Natural'Image (Buffer.Get_Index)
+               & ": invalid escaped character " & Character'Image (Buffer.Peek);
+         else
+            Escaped := True;
+         end if;
+      end if;
+
       declare
          Char   : constant Character := Buffer.Get_Next;
          Retval : constant Syntax_Tree_Node_Access := Create_Node (
-            (if Char = '.' then Any_Character else Single_Character),
+            (if not Escaped and Char = '.' then Any_Character else Single_Character),
             Output.Get_Next_Node_Id);
       begin
          if Retval.Node_Type = Single_Character then
