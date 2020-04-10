@@ -4,7 +4,9 @@
 
 with Ada.Containers.Vectors;
 with Ada.Finalization;
+
 with Regex.Syntax_Trees;
+with Regex.Utilities.Sorted_Sets;
 
 package Regex.State_Machines is
 
@@ -25,7 +27,8 @@ package Regex.State_Machines is
       with Pre => Object /= null;
 
    --  Operators allowing Input_Symbols to be used in Sorted_Sets:
-   function "<" (Left, Right : in Input_Symbol_Access) return Boolean;
+   function Compare_Input_Symbols (Left, Right : in Input_Symbol_Access) return Boolean;
+   function Input_Symbol_Equals   (Left, Right : in Input_Symbol_Access) return Boolean;
 
    --  State machine forward declarations:
    type State_Machine_State;
@@ -37,6 +40,9 @@ package Regex.State_Machines is
       Target_State  : State_Machine_State_Access;
    end record;
 
+   function "<" (Left, Right : in State_Machine_Transition) return Boolean;
+   function "=" (Left, Right : in State_Machine_Transition) return Boolean;
+
    function Create_Transition_On_Symbol (Input_Symbol : in Input_Symbol_Access;
                                          Target_State : in State_Machine_State_Access)
       return State_Machine_Transition
@@ -47,6 +53,8 @@ package Regex.State_Machines is
 
    package State_Machine_Transition_Vectors is new Ada.Containers.Vectors (
       Element_type => State_Machine_Transition, Index_Type => Positive);
+   package State_Machine_Transition_Sets is new Regex.Utilities.Sorted_Sets (
+      Element_Type => State_Machine_Transition);
 
    --  State machine state object:
    type State_Machine_State is record

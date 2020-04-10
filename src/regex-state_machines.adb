@@ -14,7 +14,7 @@ package body Regex.State_Machines is
       return New_Object;
    end Clone;
 
-   function "<" (Left, Right : in Input_Symbol_Access) return Boolean is
+   function Compare_Input_Symbols (Left, Right : in Input_Symbol_Access) return Boolean is
    begin
       case Left.Symbol_Type is
          when Single_Character =>
@@ -26,7 +26,22 @@ package body Regex.State_Machines is
          when Any_Character =>
             return False;
       end case;
+   end Compare_Input_Symbols;
+
+   function Input_Symbol_Equals (Left, Right : in Input_Symbol_Access) return Boolean is
+   begin
+      return Left.all = Right.all;
+   end Input_Symbol_Equals;
+
+   function "<" (Left, Right : in State_Machine_Transition) return Boolean is
+   begin
+      return Compare_Input_Symbols (Left.Transition_On, Right.Transition_On);
    end "<";
+
+   function "=" (Left, Right : in State_Machine_Transition) return Boolean is
+   begin
+      return Input_Symbol_Equals (Left.Transition_On, Right.Transition_On) and Left.Target_State = Right.Target_State;
+   end "=";
 
    function Create_Transition_On_Symbol (Input_Symbol : in Input_Symbol_Access;
                                          Target_State : in State_Machine_State_Access)

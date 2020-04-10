@@ -179,7 +179,8 @@ begin
          --  Mark state:
          Unmarked_State.Marked := True;
          declare
-            package Input_Symbol_Sets is new Utilities.Sorted_Sets (Element_Type => Input_Symbol_Access);
+            package Input_Symbol_Sets is new Utilities.Sorted_Sets (Element_Type => Input_Symbol_Access,
+               "<" => Compare_Input_Symbols, "=" => Input_Symbol_Equals);
             use Input_Symbol_Sets;
 
             Input_Symbols : Sorted_Set := Empty_Set;
