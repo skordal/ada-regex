@@ -20,7 +20,7 @@ separate (Regex.Regular_Expressions) procedure Compile (Input : in String; Outpu
       Left := Parse_Expression;
       if not Buffer.At_End and then Buffer.Peek = '|' then
          Buffer.Discard_Next;
-         Right := Parse_Expression;
+         Right := Parse_Alternation;
          if Right = null then
             raise Syntax_Error with "at index " & Natural'Image (Buffer.Get_Index)
                & ": expected expression after '|' operator";
