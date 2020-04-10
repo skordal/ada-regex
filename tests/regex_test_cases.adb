@@ -41,7 +41,7 @@ package body Regex_Test_Cases is
       Assert (Test_Expr.Matches ("ab"), "regex does not match correct input string 'ab'");
    end Test_Concatenation;
 
-   procedure Test_Alternation      (T : in out Test_Fixture) is
+   procedure Test_Alternation_Single (T : in out Test_Fixture) is
       pragma Unreferenced (T);
       Test_Expr : constant Regular_Expression := Create ("a|b");
    begin
@@ -49,7 +49,19 @@ package body Regex_Test_Cases is
       Assert (not Test_Expr.Matches ("ab"), "regex matches incorrect input string 'ab'");
       Assert (Test_Expr.Matches ("a"), "regex does not match correct input string 'a'");
       Assert (Test_Expr.Matches ("b"), "regex does not match correct input string 'b'");
-   end Test_Alternation;
+   end Test_Alternation_Single;
+
+   procedure Test_Alternation_Multiple (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("a|b|c|d");
+   begin
+      Assert (not Test_Expr.Matches (""), "regex matches the empty string");
+      Assert (Test_Expr.Matches ("a"), "regex does not match correct input string 'a'");
+      Assert (Test_Expr.Matches ("b"), "regex does not match correct input string 'b'");
+      Assert (Test_Expr.Matches ("c"), "regex does not match correct input string 'c'");
+      Assert (Test_Expr.Matches ("d"), "regex does not match correct input string 'd'");
+      Assert (not Test_Expr.Matches ("e"), "regex matches incorrect input string 'e'");
+   end Test_Alternation_Multiple;
 
    procedure Test_Dragon_Example   (T : in out Test_Fixture) is
       pragma Unreferenced (T);
@@ -80,6 +92,18 @@ package body Regex_Test_Cases is
       Assert (Test_Expr.Matches (""), "regex does not match the empty string");
       Assert (Test_Expr.Matches ("abc"), "regex does not match correct input string 'abc'");
    end Test_Any_Char_Optional;
+
+   procedure Test_Any_Alternate (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("(a|.|b)bc");
+   begin
+      Assert (not Test_Expr.Matches (""), "regex matches the empty string");
+      Assert (Test_Expr.Matches ("abc"), "regex does not match correct input string 'abc'");
+      Assert (Test_Expr.Matches ("bbc"), "regex does not match correct input string 'bbc'");
+      Assert (Test_Expr.Matches ("fbc"), "regex does not match correct input string 'fbc'");
+      Assert (not Test_Expr.Matches ("bc"), "regex matches incorrect input string 'bc'");
+   end Test_Any_Alternate;
 
 end Regex_Test_Cases;
 

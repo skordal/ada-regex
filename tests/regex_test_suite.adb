@@ -17,14 +17,18 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Kleene_Closure'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("concatenation",
          Regex_Test_Cases.Test_Concatenation'Access));
-      Retval.Add_Test (Regex_Test_Caller.Create ("alternation",
-         Regex_Test_Cases.Test_Alternation'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("alternation-single",
+         Regex_Test_Cases.Test_Alternation_Single'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("alternation-multiple",
+         Regex_Test_Cases.Test_Alternation_Multiple'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("dragon-book",
          Regex_Test_Cases.Test_Dragon_Example'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("any-character-single",
          Regex_Test_Cases.Test_Any_Char_Single'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("any-character-optional",
          Regex_Test_Cases.Test_Any_Char_Optional'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("any-alternate",
+         Regex_Test_Cases.Test_Any_Alternate'Access));
 
       return Retval;
    end Test_Suite;

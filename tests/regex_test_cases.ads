@@ -8,13 +8,15 @@ package Regex_Test_Cases is
 
    type Test_Fixture is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
-   procedure Test_Single_Character  (T : in out Test_Fixture);
-   procedure Test_Kleene_Closure    (T : in out Test_Fixture);
-   procedure Test_Concatenation     (T : in out Test_Fixture);
-   procedure Test_Alternation       (T : in out Test_Fixture);
-   procedure Test_Dragon_Example    (T : in out Test_Fixture);
-   procedure Test_Any_Char_Single   (T : in out Test_Fixture);
-   procedure Test_Any_Char_Optional (T : in out Test_Fixture);
+   procedure Test_Single_Character     (T : in out Test_Fixture);
+   procedure Test_Kleene_Closure       (T : in out Test_Fixture);
+   procedure Test_Concatenation        (T : in out Test_Fixture);
+   procedure Test_Alternation_Single   (T : in out Test_Fixture);
+   procedure Test_Alternation_Multiple (T : in out Test_Fixture);
+   procedure Test_Dragon_Example       (T : in out Test_Fixture);
+   procedure Test_Any_Char_Single      (T : in out Test_Fixture);
+   procedure Test_Any_Char_Optional    (T : in out Test_Fixture);
+   procedure Test_Any_Alternate        (T : in out Test_Fixture);
 
 end Regex_Test_Cases;
 
