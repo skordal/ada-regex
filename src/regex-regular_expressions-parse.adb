@@ -168,5 +168,18 @@ begin
       raise Syntax_Error with "at index " & Natural'Image (Buffer.Get_Index)
          & ": invalid trailing characters after regular expression";
    end if;
+
+   --  Add the acceptance node:
+   declare
+      Acceptance_Node : constant Syntax_Tree_Node_Access := Create_Node (Acceptance,
+         Output.Get_Next_Node_Id);
+      Toplevel_Node   : constant Syntax_Tree_Node_Access := Create_Node (Concatenation,
+         Output.Get_Next_Node_Id, Output.Syntax_Tree, Acceptance_Node);
+   begin
+      Output.Syntax_Tree := Toplevel_Node;
+   end;
+
+   --  Create the followpos() set for each node in the tree:
+   Calculate_Followpos (Output.Syntax_Tree);
 end Parse;
 

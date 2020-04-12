@@ -4,20 +4,6 @@
 
 separate (Regex.Regular_Expressions) procedure Compile (Output : in out Regular_Expression) is
 begin
-   --  Add the acceptance node:
-   declare
-      Acceptance_Node : constant Syntax_Tree_Node_Access := Create_Node (Acceptance,
-         Output.Get_Next_Node_Id);
-      Toplevel_Node   : constant Syntax_Tree_Node_Access := Create_Node (Concatenation,
-         Output.Get_Next_Node_Id, Output.Syntax_Tree, Acceptance_Node);
-   begin
-      Output.Syntax_Tree := Toplevel_Node;
-   end;
-
-   --  Create the followpos() set for each node in the tree:
-   Calculate_Followpos (Output.Syntax_Tree);
-
-   --  Create the state machine:
    declare
       Start_State : constant State_Machine_State_Access := Create_State (Firstpos (Output.Syntax_Tree));
       Unmarked_State : State_Machine_State_Access := null;
