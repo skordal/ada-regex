@@ -3,6 +3,7 @@
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 with AUnit.Test_Fixtures;
+private with Regex.Regular_Expressions;
 
 package Regex_Test_Cases is
 
@@ -18,6 +19,18 @@ package Regex_Test_Cases is
    procedure Test_Any_Char_Optional    (T : in out Test_Fixture);
    procedure Test_Any_Alternate        (T : in out Test_Fixture);
    procedure Test_Escape_Seqs          (T : in out Test_Fixture);
+   procedure Test_Single_Range         (T : in out Test_Fixture);
+   procedure Test_Multiple_Ranges      (T : in out Test_Fixture);
+   procedure Test_Ranges_And_Chars     (T : in out Test_Fixture);
+
+private
+   use Regex.Regular_Expressions;
+
+   procedure Matches_Empty_Strings        (Regex : in Regular_Expression);
+   procedure Does_Not_Match_Empty_Strings (Regex : in Regular_Expression);
+
+   procedure Matches        (Regex : in Regular_Expression;     Matching : in String);
+   procedure Does_Not_Match (Regex : in Regular_Expression; Not_Matching : in String);
 
 end Regex_Test_Cases;
 
