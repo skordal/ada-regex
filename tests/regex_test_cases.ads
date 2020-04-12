@@ -26,11 +26,11 @@ package Regex_Test_Cases is
 private
    use Regex.Regular_Expressions;
 
-   procedure Matches_Empty_Strings        (Regex : in Regular_Expression);
-   procedure Does_Not_Match_Empty_Strings (Regex : in Regular_Expression);
+   procedure Matches_Empty_Strings        (Regex : in Regular_Expression) with Inline;
+   procedure Does_Not_Match_Empty_Strings (Regex : in Regular_Expression) with Inline;
 
-   procedure Matches        (Regex : in Regular_Expression;     Matching : in String);
-   procedure Does_Not_Match (Regex : in Regular_Expression; Not_Matching : in String);
+   procedure Matches        (Regex : in Regular_Expression;     Matching : in String) with Inline;
+   procedure Does_Not_Match (Regex : in Regular_Expression; Not_Matching : in String) with Inline;
 
 end Regex_Test_Cases;
 
