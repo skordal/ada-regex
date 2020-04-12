@@ -49,8 +49,11 @@ private
    --  Gets the next node ID:
    function Get_Next_Node_Id (This : in out Regular_Expression) return Natural with Inline;
 
+   --  Parses a regular expression and constructs a syntax tree:
+   procedure Parse (Input : in String; Output : in out Regular_Expression);
+
    --  Compiles a regular expression into a state machine:
-   procedure Compile (Input : in String; Output : in out Regular_Expression);
+   procedure Compile (Output : in out Regular_Expression);
 
 end Regex.Regular_Expressions;
 

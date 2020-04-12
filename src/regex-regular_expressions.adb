@@ -11,7 +11,8 @@ package body Regex.Regular_Expressions is
    function Create (Input : in String) return Regular_Expression is
    begin
       return Retval : Regular_Expression do
-         Compile (Input, Retval);
+         Parse (Input, Retval);
+         Compile (Retval);
       end return;
    end Create;
 
@@ -77,7 +78,9 @@ package body Regex.Regular_Expressions is
       return Retval;
    end Get_Next_Node_Id;
 
-   procedure Compile (Input : in String; Output : in out Regular_Expression) is separate;
+   --  Separate units:
+   procedure Parse (Input : in String; Output : in out Regular_Expression) is separate;
+   procedure Compile (Output : in out Regular_Expression) is separate;
 
 end Regex.Regular_Expressions;
 
