@@ -31,6 +31,14 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Any_Alternate'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("escaped-char",
          Regex_Test_Cases.Test_Escape_Seqs'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("single-range",
+         Regex_Test_Cases.Test_Single_Range'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("multiple-ranges",
+         Regex_Test_Cases.Test_Multiple_Ranges'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("ranges-and-chars",
+         Regex_Test_Cases.Test_Ranges_And_Chars'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("hexadecimal",
+         Regex_Test_Cases.Test_Hexadecimal'Access));
 
       return Retval;
    end Test_Suite;

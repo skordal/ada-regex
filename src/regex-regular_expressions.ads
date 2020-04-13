@@ -6,6 +6,7 @@ with Regex.Syntax_Trees;
 with Regex.State_Machines;
 
 private with Ada.Finalization;
+private with Ada.Text_IO;
 
 package Regex.Regular_Expressions is
 

@@ -5,6 +5,9 @@
 with AUnit.Assertions;
 use  AUnit.Assertions;
 
+with Regex.Debug;
+use Regex.Debug;
+
 with Regex.Regular_Expressions;
 use Regex.Regular_Expressions;
 
@@ -124,21 +127,66 @@ package body Regex_Test_Cases is
 
    procedure Test_Single_Range (T : in out Test_Fixture) is
       pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("[a-c]d");
    begin
-      null;
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "a");
+      Does_Not_Match (Test_Expr, "b");
+      Does_Not_Match (Test_Expr, "c");
+      Does_Not_Match (Test_Expr, "abc");
+      Does_Not_Match (Test_Expr, "abcd");
+      Matches (Test_Expr, "ad");
+      Matches (Test_Expr, "bd");
+      Matches (Test_Expr, "cd");
    end Test_Single_Range;
 
    procedure Test_Multiple_Ranges (T : in out Test_Fixture) is
       pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("[a-cA-C0-1]");
    begin
-      null;
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "_");
+      Does_Not_Match (Test_Expr, "aC1");
+      Does_Not_Match (Test_Expr, "d");
+      Does_Not_Match (Test_Expr, "00");
+      Matches (Test_Expr, "a");
+      Matches (Test_Expr, "b");
+      Matches (Test_Expr, "c");
+      Matches (Test_Expr, "A");
+      Matches (Test_Expr, "B");
+      Matches (Test_Expr, "C");
+      Matches (Test_Expr, "0");
+      Matches (Test_Expr, "1");
    end Test_Multiple_Ranges;
 
    procedure Test_Ranges_And_Chars (T : in out Test_Fixture) is
       pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("[a-cfA-C_]");
+   begin
+      Print_State_Machine (Test_Expr.Get_State_Machine);
+
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "f_");
+      Matches (Test_Expr, "a");
+      Matches (Test_Expr, "b");
+      Matches (Test_Expr, "c");
+      Matches (Test_Expr, "A");
+      Matches (Test_Expr, "B");
+      Matches (Test_Expr, "C");
+      Matches (Test_Expr, "_");
+      Matches (Test_Expr, "f");
+   end Test_Ranges_And_Chars;
+
+   procedure Test_Hexadecimal (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      Test_Expr : constant Regular_Expression := Create ("0(x|X)[0-9a-fA-F]+");
    begin
       null;
-   end Test_Ranges_And_Chars;
+   end Test_Hexadecimal;
 
    ------ Test utility functions -----
 
