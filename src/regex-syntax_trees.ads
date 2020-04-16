@@ -43,6 +43,10 @@ package Regex.Syntax_Trees is
                          Char                    : in Character := Character'Val (0))
    return Syntax_Tree_Node_Access;
 
+   --  Clones a syntax tree:
+   function Clone_Tree (Root : in Syntax_Tree_Node_Access; Next_Id : in out Natural)
+      return Syntax_Tree_Node_Access with Pre => Root /= null;
+
    --  Frees a syntax tree recursively:
    procedure Free_Recursively (Root_Node : in out Syntax_Tree_Node_Access);
 

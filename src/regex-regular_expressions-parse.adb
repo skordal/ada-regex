@@ -88,10 +88,25 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
    function Parse_Simple_Expression return Syntax_Tree_Node_Access is
       Left : constant Syntax_Tree_Node_Access := Parse_Single_Expression;
    begin
-      if not Buffer.At_End and then (Buffer.Peek = '*') then
+      if not Buffer.At_End and then Buffer.Peek = '*' then
          declare
-            Retval : constant Syntax_Tree_Node_Access := Create_Node (Kleene_Star,
-               Output.Get_Next_Node_Id, Left);
+            Retval : constant Syntax_Tree_Node_Access := Create_Node (Node_Type  => Kleene_Star,
+                                                                      Id         => Output.Get_Next_Node_Id,
+                                                                      Left_Child => Left);
+         begin
+            Buffer.Discard_Next;
+            return Retval;
+         end;
+      elsif not Buffer.At_End and then Buffer.Peek = '+' then
+         declare
+            Optional_Branch : constant Syntax_Tree_Node_Access := Clone_Tree (Left, Output.Syntax_Tree_Node_Count);
+            Right           : constant Syntax_Tree_Node_Access := Create_Node (Node_Type => Kleene_Star,
+                                                                               Id => Output.Get_Next_Node_Id,
+                                                                               Left_Child => Optional_Branch);
+            Retval  : constant Syntax_Tree_Node_Access := Create_Node (Node_Type => Concatenation,
+                                                                     Id          => Output.Get_Next_Node_Id,
+                                                                     Left_Child  => Left,
+                                                                     Right_Child => Right);
          begin
             Buffer.Discard_Next;
             return Retval;

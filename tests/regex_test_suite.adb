@@ -37,6 +37,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Multiple_Ranges'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("ranges-and-chars",
          Regex_Test_Cases.Test_Ranges_And_Chars'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("plus-operator",
+         Regex_Test_Cases.Test_Plus_Operator'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("hexadecimal",
          Regex_Test_Cases.Test_Hexadecimal'Access));
 

@@ -22,6 +22,7 @@ package Regex_Test_Cases is
    procedure Test_Single_Range         (T : in out Test_Fixture);
    procedure Test_Multiple_Ranges      (T : in out Test_Fixture);
    procedure Test_Ranges_And_Chars     (T : in out Test_Fixture);
+   procedure Test_Plus_Operator        (T : in out Test_Fixture);
    procedure Test_Hexadecimal          (T : in out Test_Fixture);
 
 private

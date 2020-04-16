@@ -5,9 +5,6 @@
 with AUnit.Assertions;
 use  AUnit.Assertions;
 
-with Regex.Debug;
-use Regex.Debug;
-
 with Regex.Regular_Expressions;
 use Regex.Regular_Expressions;
 
@@ -79,7 +76,6 @@ package body Regex_Test_Cases is
 
    procedure Test_Any_Char_Single (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("a.c");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
@@ -89,7 +85,6 @@ package body Regex_Test_Cases is
 
    procedure Test_Any_Char_Optional (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create (".*");
    begin
       Matches_Empty_Strings (Test_Expr);
@@ -98,7 +93,6 @@ package body Regex_Test_Cases is
 
    procedure Test_Any_Alternate (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("(a|.|b)bc");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
@@ -110,7 +104,6 @@ package body Regex_Test_Cases is
 
    procedure Test_Escape_Seqs (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\|");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
@@ -127,7 +120,6 @@ package body Regex_Test_Cases is
 
    procedure Test_Single_Range (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("[a-c]d");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
@@ -143,7 +135,6 @@ package body Regex_Test_Cases is
 
    procedure Test_Multiple_Ranges (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("[a-cA-C0-1]");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
@@ -163,11 +154,8 @@ package body Regex_Test_Cases is
 
    procedure Test_Ranges_And_Chars (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("[a-cfA-C_]");
    begin
-      Print_State_Machine (Test_Expr.Get_State_Machine);
-
       Does_Not_Match_Empty_Strings (Test_Expr);
       Does_Not_Match (Test_Expr, "f_");
       Matches (Test_Expr, "a");
@@ -180,12 +168,29 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "f");
    end Test_Ranges_And_Chars;
 
+   procedure Test_Plus_Operator (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("ab+");
+   begin
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "a");
+      Matches (Test_Expr, "ab");
+      Matches (Test_Expr, "abb");
+      Matches (Test_Expr, "abbb");
+   end Test_Plus_Operator;
+
    procedure Test_Hexadecimal (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-
       Test_Expr : constant Regular_Expression := Create ("0(x|X)[0-9a-fA-F]+");
    begin
-      null;
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "0");
+      Does_Not_Match (Test_Expr, "00");
+      Does_Not_Match (Test_Expr, "0x");
+      Does_Not_Match (Test_Expr, "0X");
+      Matches (Test_Expr, "0x0");
+      Matches (Test_Expr, "0xabcd1234");
+      Matches (Test_Expr, "0xdeadbeef");
    end Test_Hexadecimal;
 
    ------ Test utility functions -----

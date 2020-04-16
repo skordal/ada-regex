@@ -28,6 +28,28 @@ package body Regex.Syntax_Trees is
       return Retval;
    end Create_Node;
 
+   function Clone_Tree (Root : in Syntax_Tree_Node_Access; Next_Id : in out Natural)
+      return Syntax_Tree_Node_Access
+   is
+      Retval : constant Syntax_Tree_Node_Access := Create_Node (Root.Node_Type, Next_Id);
+   begin
+      Next_Id := Next_Id + 1;
+
+      if Retval.Node_Type = Single_Character then
+         Retval.Char := Root.Char;
+      end if;
+
+      if Root.Left_Child /= null then
+         Retval.Left_Child := Clone_Tree (Root.Left_Child, Next_Id);
+      end if;
+
+      if Root.Right_Child /= null then
+         Retval.Right_Child := Clone_Tree (Root.Right_Child, Next_Id);
+      end if;
+
+      return Retval;
+   end Clone_Tree;
+
    procedure Free_Recursively (Root_Node : in out Syntax_Tree_Node_Access) is
       procedure Free is new Ada.Unchecked_Deallocation (Syntax_Tree_Node, Syntax_Tree_Node_Access);
    begin
