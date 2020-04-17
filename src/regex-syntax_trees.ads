@@ -11,6 +11,7 @@ package Regex.Syntax_Trees is
       Acceptance,       --  Acceptance node, indicates the current node is a possible end-node
       Single_Character, --  Node representing a single character input
       Any_Character,    --  Node representing any character input, '.'
+      Empty_Node,       --  Character representing an empty node, ε
       Alternation,      --  Node representing an alternation operator, '|'
       Concatenation,    --  Node representing a concatenation of two subtrees
       Kleene_Star);     --  Node representing the Kleene star/wildcard operator, '*'

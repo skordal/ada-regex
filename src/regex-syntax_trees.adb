@@ -69,7 +69,7 @@ package body Regex.Syntax_Trees is
       pragma Assert (Node /= null);
 
       case Node.Node_Type is
-         when Kleene_Star =>
+         when Kleene_Star | Empty_Node =>
             return True;
          when Single_Character | Any_Character | Acceptance =>
             return False;
@@ -87,6 +87,8 @@ package body Regex.Syntax_Trees is
       pragma Assert (Node /= null);
 
       case Node.Node_Type is
+         when Empty_Node =>
+            null; --  Returns Empty_Set
          when Kleene_Star =>
             Retval := Firstpos (Node.Left_Child);
          when Concatenation =>
@@ -111,6 +113,8 @@ package body Regex.Syntax_Trees is
       pragma Assert (Node /= null);
 
       case Node.Node_Type is
+         when Empty_Node =>
+            null; --  Returns Empty_Set
          when Kleene_Star =>
             Retval := Lastpos (Node.Left_Child);
          when Single_Character | Any_Character | Acceptance =>

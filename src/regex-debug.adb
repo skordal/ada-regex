@@ -52,6 +52,15 @@ package body Regex.Debug is
                Put (", followpos = ");
                Print_Set (Node.Followpos);
                New_Line;
+            when Empty_Node =>
+               Put ("empty node, ε, nullable = " & Boolean'Image (Nullable (Node))
+                  & ", firstpos = ");
+               Print_Set (Firstpos (Node));
+               Put (", lastpos = ");
+               Print_Set (Lastpos (Node));
+               Put (", followpos = ");
+               Print_Set (Node.Followpos);
+               New_Line;
             when Alternation =>
                Put ("alternation '|', nullable = " & Boolean'Image (Nullable (Node))
                   & ", firstpos = ");

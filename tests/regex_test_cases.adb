@@ -104,7 +104,7 @@ package body Regex_Test_Cases is
 
    procedure Test_Escape_Seqs (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\|");
+      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\||\?");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
       Matches (Test_Expr, ".");
@@ -116,6 +116,7 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "+");
       Matches (Test_Expr, "\");
       Matches (Test_Expr, "|");
+      Matches (Test_Expr, "?");
    end Test_Escape_Seqs;
 
    procedure Test_Single_Range (T : in out Test_Fixture) is
@@ -192,6 +193,19 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "0xabcd1234");
       Matches (Test_Expr, "0xdeadbeef");
    end Test_Hexadecimal;
+
+   procedure Test_Question_Operator (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("a?b");
+   begin
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Matches (Test_Expr, "ab");
+      Matches (Test_Expr, "b");
+      Does_Not_Match (Test_Expr, "aab");
+      Does_Not_Match (Test_Expr, "abb");
+      Does_Not_Match (Test_Expr, "aa");
+      Does_Not_Match (Test_Expr, "bb");
+   end Test_Question_Operator;
 
    ------ Test utility functions -----
 

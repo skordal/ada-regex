@@ -41,6 +41,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Plus_Operator'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("hexadecimal",
          Regex_Test_Cases.Test_Hexadecimal'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("question-mark",
+         Regex_Test_Cases.Test_Question_Operator'Access));
 
       return Retval;
    end Test_Suite;

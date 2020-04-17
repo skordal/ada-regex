@@ -111,6 +111,18 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
             Buffer.Discard_Next;
             return Retval;
          end;
+      elsif not Buffer.At_End and then Buffer.Peek = '?' then
+         declare
+            Right  : constant Syntax_Tree_Node_Access := Create_Node (Node_Type => Empty_Node,
+                                                                      Id        => Output.Get_Next_Node_Id);
+            Retval : constant Syntax_Tree_Node_Access := Create_Node (Node_Type     => Alternation,
+                                                                      Id            => Output.Get_Next_Node_Id,
+                                                                      Left_Child    => Left,
+                                                                      Right_Child   => Right);
+         begin
+            Buffer.Discard_Next;
+            return Retval;
+         end;
       else
          return Left;
       end if;
@@ -143,7 +155,8 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
             Buffer.Peek = ')' or
             Buffer.Peek = '|' or
             Buffer.Peek = '*' or
-            Buffer.Peek = '+')
+            Buffer.Peek = '+' or
+            Buffer.Peek = '?')
       then
          return null;
       end if;
@@ -302,7 +315,8 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
              C = '.' or
              C = '|' or
              C = '\' or
-             C = '+';
+             C = '+' or
+             C = '?';
    end Is_Escapable;
 
    function Range_Contents (Range_Start, Range_End : in Character) return Character_Range_Array is
