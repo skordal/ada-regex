@@ -10,6 +10,7 @@ project Regex is
    for Library_Dir use "lib";
    for Library_Name use "ada-regex";
    for Library_Version use "libada-regex.so.0.1.0";
+   for Library_Kind use "dynamic";
 
    package Compiler is
       for Default_Switches ("Ada") use ("-gnaty", "-gnatyM120", "-gnata", "-gnatwa", "-gnat2012", "-Og", "-g3");
