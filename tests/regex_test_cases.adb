@@ -228,6 +228,14 @@ package body Regex_Test_Cases is
          Assert (Complete, "full match is reported as incomplete match");
          Assert (Full_Match = "abc", "full match is incorrect");
       end;
+
+      declare
+         Complete : Boolean;
+         No_Match : constant String := Get_Match (Test_Expr, "bbdd", Complete);
+      begin
+         Assert (not Complete, "no match is reported as complete match");
+         Assert (No_Match'Length = 0, "incorrect partial match for string that should not match");
+      end;
    end Test_Partial_Matching;
 
    procedure Test_Newlines (T : in out Test_Fixture) is
