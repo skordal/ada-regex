@@ -156,7 +156,8 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
             Buffer.Peek = '|' or
             Buffer.Peek = '*' or
             Buffer.Peek = '+' or
-            Buffer.Peek = '?')
+            Buffer.Peek = '?' or
+            Buffer.Peek = '-')
       then
          return null;
       end if;
@@ -316,7 +317,8 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
              C = '|' or
              C = '\' or
              C = '+' or
-             C = '?';
+             C = '?' or
+             C = '-';
    end Is_Escapable;
 
    function Range_Contents (Range_Start, Range_End : in Character) return Character_Range_Array is

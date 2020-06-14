@@ -16,37 +16,6 @@ package body Regex.Regular_Expressions is
       end return;
    end Create;
 
-   function Matches (This : in Regular_Expression; Query : in String) return Boolean is
-      Current_State : State_Machine_State_Access := This.Start_State;
-   begin
-      for Symbol of Query loop
-         declare
-            Transition_Found : Boolean := False;
-         begin
-            Find_Transition : for Transition of Current_State.Transitions loop
-               case Transition.Transition_On.Symbol_Type is
-                  when Single_Character =>
-                     if Transition.Transition_On.Char = Symbol then
-                        Current_State := Transition.Target_State;
-                        Transition_Found := True;
-                     end if;
-                  when Any_Character =>
-                     Current_State := Transition.Target_State;
-                     Transition_Found := True;
-               end case;
-
-               exit Find_Transition when Transition_Found;
-            end loop Find_Transition;
-
-            if not Transition_Found then
-               return False;
-            end if;
-         end;
-      end loop;
-
-      return Current_State.Accepting;
-   end Matches;
-
    function Get_Syntax_Tree (This : in Regular_Expression)
       return Regex.Syntax_Trees.Syntax_Tree_Node_Access is
    begin
@@ -58,6 +27,12 @@ package body Regex.Regular_Expressions is
    begin
       return This.State_Machine_States;
    end Get_State_Machine;
+
+   function Get_Start_State (This : in Regular_Expression)
+      return Regex.State_Machines.State_Machine_State_Access is
+   begin
+      return This.Start_State;
+   end Get_Start_State;
 
    procedure Finalize (This : in out Regular_Expression) is
       procedure Free_State is new Ada.Unchecked_Deallocation (State_Machine_State, State_Machine_State_Access);

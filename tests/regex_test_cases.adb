@@ -2,11 +2,10 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
-with AUnit.Assertions;
-use  AUnit.Assertions;
+with AUnit.Assertions; use AUnit.Assertions;
 
-with Regex.Regular_Expressions;
-use Regex.Regular_Expressions;
+with Regex.Regular_Expressions; use Regex.Regular_Expressions;
+with Regex.Matchers;            use Regex.Matchers;
 
 package body Regex_Test_Cases is
 
@@ -104,7 +103,7 @@ package body Regex_Test_Cases is
 
    procedure Test_Escape_Seqs (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\||\?");
+      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\||\?|\-");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
       Matches (Test_Expr, ".");
@@ -117,6 +116,7 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "\");
       Matches (Test_Expr, "|");
       Matches (Test_Expr, "?");
+      Matches (Test_Expr, "-");
    end Test_Escape_Seqs;
 
    procedure Test_Single_Range (T : in out Test_Fixture) is
@@ -207,28 +207,49 @@ package body Regex_Test_Cases is
       Does_Not_Match (Test_Expr, "bb");
    end Test_Question_Operator;
 
+   procedure Test_Partial_Matching (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("abc");
+   begin
+      declare
+         Complete : Boolean;
+         Partial_Match : constant String := Get_Match (Test_Expr, "abff", Complete);
+      begin
+         Assert (not Complete, "partial match is reported as complete match");
+         Assert (Partial_Match = "ab", "partial match is incorrect");
+      end;
+
+      declare
+         Complete : Boolean;
+         Full_Match : constant String := Get_Match (Test_Expr, "abcdef", Complete);
+      begin
+         Assert (Complete, "full match is reported as incomplete match");
+         Assert (Full_Match = "abc", "full match is incorrect");
+      end;
+   end Test_Partial_Matching;
+
    ------ Test utility functions -----
 
    procedure Matches_Empty_Strings (Regex : in Regular_Expression) is
    begin
-      Assert (Regex.Matches (""), "regex does not match the empty string");
+      Assert (Matches (Regex, ""), "regex does not match the empty string");
    end Matches_Empty_Strings;
 
    procedure Does_Not_Match_Empty_Strings (Regex : in Regular_Expression) is
    begin
-      Assert (not Regex.Matches (""), "regex matches the empty string");
+      Assert (not Matches (Regex, ""), "regex matches the empty string");
    end Does_Not_Match_Empty_Strings;
 
    procedure Matches (Regex : in Regular_Expression; Matching : in String) is
    begin
-      Assert (Regex.Matches (Matching), "regex does not match correct input string '"
+      Assert (Matches (Regex, Matching), "regex does not match correct input string '"
          & Matching & "'");
       null;
    end Matches;
 
    procedure Does_Not_Match (Regex : in Regular_Expression; Not_Matching : in String) is
    begin
-      Assert (not Regex.Matches (Not_Matching), "regex matches incorrect input string '"
+      Assert (not Matches (Regex, Not_Matching), "regex matches incorrect input string '"
          & Not_Matching & "'");
    end Does_Not_Match;
 
