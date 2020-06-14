@@ -26,6 +26,7 @@ package Regex_Test_Cases is
    procedure Test_Hexadecimal          (T : in out Test_Fixture);
    procedure Test_Question_Operator    (T : in out Test_Fixture);
    procedure Test_Partial_Matching     (T : in out Test_Fixture);
+   procedure Test_Newlines             (T : in out Test_Fixture);
 
 private
    use Regex.Regular_Expressions;

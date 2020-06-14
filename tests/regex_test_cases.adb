@@ -2,6 +2,8 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
+with Ada.Characters.Latin_1;
+
 with AUnit.Assertions; use AUnit.Assertions;
 
 with Regex.Regular_Expressions; use Regex.Regular_Expressions;
@@ -227,6 +229,26 @@ package body Regex_Test_Cases is
          Assert (Full_Match = "abc", "full match is incorrect");
       end;
    end Test_Partial_Matching;
+
+   procedure Test_Newlines (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("aab\n|bc\r|df\r\n");
+   begin
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "aab");
+      Does_Not_Match (Test_Expr, "bc");
+      Does_Not_Match (Test_Expr, "df");
+
+      Does_Not_Match (Test_Expr, "aab" & Ada.Characters.Latin_1.CR);
+      Matches (Test_Expr, "aab" & Ada.Characters.Latin_1.LF);
+
+      Does_Not_Match (Test_Expr, "bc" & Ada.Characters.Latin_1.LF);
+      Matches (Test_Expr, "bc" & Ada.Characters.Latin_1.CR);
+
+      Does_Not_Match (Test_Expr, "df" & Ada.Characters.Latin_1.LF);
+      Does_Not_Match (Test_Expr, "df" & Ada.Characters.Latin_1.CR);
+      Matches (Test_Expr, "df" & Ada.Characters.Latin_1.CR & Ada.Characters.Latin_1.LF);
+   end Test_Newlines;
 
    ------ Test utility functions -----
 

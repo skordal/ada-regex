@@ -46,6 +46,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Question_Operator'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("partial-match",
          Regex_Test_Cases.Test_Partial_Matching'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("newlines",
+         Regex_Test_Cases.Test_Newlines'Access));
 
       return Retval;
    end Test_Suite;

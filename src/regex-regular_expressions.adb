@@ -2,7 +2,9 @@
 --  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
+with Ada.Characters.Latin_1;
 with Ada.Unchecked_Deallocation;
+
 with Regex.Utilities.Sorted_Sets;
 with Regex.Utilities.String_Buffers;
 
