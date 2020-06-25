@@ -6,7 +6,6 @@ with Ada.Characters.Latin_1;
 
 with AUnit.Assertions; use AUnit.Assertions;
 
-with Regex.Debug;
 with Regex.Matchers;            use Regex.Matchers;
 with Regex.Regular_Expressions; use Regex.Regular_Expressions;
 with Regex.Syntax_Trees;        use Regex.Syntax_Trees;
@@ -266,9 +265,6 @@ package body Regex_Test_Cases is
       Test_Tree : Syntax_Tree_Node_Access := Clone_Tree (Original_Expression.Get_Syntax_Tree);
       Test_Expr : constant Regular_Expression := Create (Test_Tree);
    begin
-      Regex.Debug.Print_Syntax_Tree (Original_Expression.Get_Syntax_Tree);
-      Regex.Debug.Print_Syntax_Tree (Test_Tree);
-
       Free_Recursively (Test_Tree);
 
       Does_Not_Match_Empty_Strings (Test_Expr);
