@@ -6,8 +6,10 @@ with Ada.Characters.Latin_1;
 
 with AUnit.Assertions; use AUnit.Assertions;
 
-with Regex.Regular_Expressions; use Regex.Regular_Expressions;
+with Regex.Debug;
 with Regex.Matchers;            use Regex.Matchers;
+with Regex.Regular_Expressions; use Regex.Regular_Expressions;
+with Regex.Syntax_Trees;        use Regex.Syntax_Trees;
 
 package body Regex_Test_Cases is
 
@@ -257,6 +259,22 @@ package body Regex_Test_Cases is
       Does_Not_Match (Test_Expr, "df" & Ada.Characters.Latin_1.CR);
       Matches (Test_Expr, "df" & Ada.Characters.Latin_1.CR & Ada.Characters.Latin_1.LF);
    end Test_Newlines;
+
+   procedure Test_Syntax_Tree_Compile (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Original_Expression : constant Regular_Expression := Create ("abc|ef");
+      Test_Tree : Syntax_Tree_Node_Access := Clone_Tree (Original_Expression.Get_Syntax_Tree);
+      Test_Expr : constant Regular_Expression := Create (Test_Tree);
+   begin
+      Regex.Debug.Print_Syntax_Tree (Original_Expression.Get_Syntax_Tree);
+      Regex.Debug.Print_Syntax_Tree (Test_Tree);
+
+      Free_Recursively (Test_Tree);
+
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Matches (Test_Expr, "abc");
+      Matches (Test_Expr, "ef");
+   end Test_Syntax_Tree_Compile;
 
    ------ Test utility functions -----
 

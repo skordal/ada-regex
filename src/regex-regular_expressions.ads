@@ -20,6 +20,9 @@ package Regex.Regular_Expressions is
    --  Creates a regular expression object from a regular expression string:
    function Create (Input : in String) return Regular_Expression;
 
+   --  Creates a regular expression object from an existing syntax tree:
+   function Create (Input : in Regex.Syntax_Trees.Syntax_Tree_Node_Access) return Regular_Expression;
+
    --  Gets the syntax tree of a regular expression:
    function Get_Syntax_Tree (This : in Regular_Expression)
       return Regex.Syntax_Trees.Syntax_Tree_Node_Access with Inline;

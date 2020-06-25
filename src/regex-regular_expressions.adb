@@ -18,6 +18,14 @@ package body Regex.Regular_Expressions is
       end return;
    end Create;
 
+   function Create (Input : in Regex.Syntax_Trees.Syntax_Tree_Node_Access) return Regular_Expression is
+   begin
+      return Retval : Regular_Expression do
+         Retval.Syntax_Tree := Regex.Syntax_Trees.Clone_Tree (Input, Retval.Syntax_Tree_Node_Count);
+         Compile (Retval);
+      end return;
+   end Create;
+
    function Get_Syntax_Tree (This : in Regular_Expression)
       return Regex.Syntax_Trees.Syntax_Tree_Node_Access is
    begin
