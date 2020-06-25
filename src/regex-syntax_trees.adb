@@ -47,8 +47,39 @@ package body Regex.Syntax_Trees is
          Retval.Right_Child := Clone_Tree (Root.Right_Child, Next_Id);
       end if;
 
+      Calculate_Followpos (Retval);
       return Retval;
    end Clone_Tree;
+
+   function Clone_Tree (Root : in Syntax_Tree_Node_Access) return Syntax_Tree_Node_Access is
+      Next_Id : Natural := 1;
+   begin
+      return Clone_Tree (Root, Next_Id);
+   end Clone_Tree;
+
+   function Get_Acceptance_Node (Root : in Syntax_Tree_Node_Access) return Syntax_Tree_Node_Access is
+      Retval : Syntax_Tree_Node_Access := null;
+   begin
+      if Root.Node_Type = Acceptance then
+         return Root;
+      else
+         if Root.Right_Child /= null then
+            Retval := Get_Acceptance_Node (Root.Right_Child);
+            if Retval /= null then
+               return Retval;
+            end if;
+         end if;
+
+         if Root.Left_Child /= null then
+            Retval := Get_Acceptance_Node (Root.Left_Child);
+            if Retval /= null then
+               return Retval;
+            end if;
+         end if;
+
+         return null;
+      end if;
+   end Get_Acceptance_Node;
 
    procedure Free_Recursively (Root_Node : in out Syntax_Tree_Node_Access) is
       procedure Free is new Ada.Unchecked_Deallocation (Syntax_Tree_Node, Syntax_Tree_Node_Access);

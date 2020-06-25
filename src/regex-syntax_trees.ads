@@ -48,6 +48,13 @@ package Regex.Syntax_Trees is
    function Clone_Tree (Root : in Syntax_Tree_Node_Access; Next_Id : in out Natural)
       return Syntax_Tree_Node_Access with Pre => Root /= null;
 
+   function Clone_Tree (Root : in Syntax_Tree_Node_Access)
+      return Syntax_Tree_Node_Access with Pre => Root /= null;
+
+   --  Gets the acceptance node from a syntax tree:
+   function Get_Acceptance_Node (Root : in Syntax_Tree_Node_Access)
+      return Syntax_Tree_Node_Access with Pre => Root /= null;
+
    --  Frees a syntax tree recursively:
    procedure Free_Recursively (Root_Node : in out Syntax_Tree_Node_Access);
 
