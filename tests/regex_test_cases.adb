@@ -272,6 +272,36 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "ef");
    end Test_Syntax_Tree_Compile;
 
+   procedure Test_Multiple_Accept (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      First_Expression  : constant Regular_Expression := Create ("abc");
+      Second_Expression : constant Regular_Expression := Create ("def");
+   begin
+
+      Get_Acceptance_Node (First_Expression.Get_Syntax_Tree).Acceptance_Id := 1;
+      Get_Acceptance_Node (Second_Expression.Get_Syntax_Tree).Acceptance_Id := 2;
+
+      declare
+         Id_Counter : Natural := 1;
+         Combined_Tree : Syntax_Tree_Node_Access := Create_Node (
+            Node_Type => Alternation,
+            Id        => 0,
+            Left_Child => Clone_Tree (First_Expression.Get_Syntax_Tree, Id_Counter),
+            Right_Child => Clone_Tree (Second_Expression.Get_Syntax_Tree, Id_Counter));
+         Test_Expr : constant Regular_Expression := Create (Combined_Tree);
+
+         Match_Id : Natural;
+      begin
+         Free_Recursively (Combined_Tree);
+
+         Does_Not_Match_Empty_Strings (Test_Expr);
+         Matches (Test_Expr, "abc", 1);
+         Matches (Test_Expr, "def", 2);
+      end;
+
+   end Test_Multiple_Accept;
+
    ------ Test utility functions -----
 
    procedure Matches_Empty_Strings (Regex : in Regular_Expression) is
@@ -288,7 +318,15 @@ package body Regex_Test_Cases is
    begin
       Assert (Matches (Regex, Matching), "regex does not match correct input string '"
          & Matching & "'");
-      null;
+   end Matches;
+
+   procedure Matches (Regex : in Regular_Expression; Matching : in String; Expected_Id : in Natural) is
+      Match_Id : Natural;
+   begin
+      Assert (Matches (Regex, Matching, Match_Id), "regex does not match correct input string '"
+         & Matching & "'");
+      Assert (Match_Id = Expected_Id, "expected match ID ( " & Natural'Image (Expected_Id)
+         & ") does not match actual match ID (" & Natural'Image (Match_Id) & ")");
    end Matches;
 
    procedure Does_Not_Match (Regex : in Regular_Expression; Not_Matching : in String) is

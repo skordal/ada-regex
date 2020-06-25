@@ -32,6 +32,8 @@ package Regex.Syntax_Trees is
       case Node_Type is
          when Single_Character =>
             Char : Character;
+         when Acceptance =>
+            Acceptance_Id : Natural;
          when others =>
             null;
       end case;

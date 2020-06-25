@@ -7,7 +7,7 @@ with Regex.State_Machines; use Regex.State_Machines;
 
 package body Regex.Matchers is
 
-   function Matches (Input : in Regular_Expression; Query : in String) return Boolean is
+   function Matches (Input : in Regular_Expression; Query : in String; Match_Id : out Natural) return Boolean is
       Current_State : State_Machine_State_Access := Input.Get_Start_State;
    begin
       for Symbol of Query loop
@@ -35,7 +35,17 @@ package body Regex.Matchers is
          end;
       end loop;
 
+      if Current_State.Accepting then
+         Match_Id := Current_State.Acceptance_id;
+      end if;
+
       return Current_State.Accepting;
+   end Matches;
+
+   function Matches (Input : in Regular_Expression; Query : in String) return Boolean is
+      Id : Natural;
+   begin
+      return Matches (Input, Query, Id);
    end Matches;
 
 

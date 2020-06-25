@@ -72,8 +72,9 @@ package body Regex.State_Machines is
    function Create_State (Syntax_Tree_Nodes : in Syntax_Tree_Node_Sets.Sorted_Set) return State_Machine_State_Access is
       Retval : constant State_Machine_State_Access := new State_Machine_State'(
          Syntax_Tree_Nodes => Syntax_Tree_Nodes,
-         Transitions => State_Machine_Transition_Vectors.Empty_Vector,
-         others => False);
+         Transitions       => State_Machine_Transition_Vectors.Empty_Vector,
+         Acceptance_Id     => 0,
+         others            => False);
    begin
       return Retval;
    end Create_State;

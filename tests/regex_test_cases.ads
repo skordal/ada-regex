@@ -28,6 +28,7 @@ package Regex_Test_Cases is
    procedure Test_Partial_Matching     (T : in out Test_Fixture);
    procedure Test_Newlines             (T : in out Test_Fixture);
    procedure Test_Syntax_Tree_Compile  (T : in out Test_Fixture);
+   procedure Test_Multiple_Accept      (T : in out Test_Fixture);
 
 private
    use Regex.Regular_Expressions;
@@ -35,7 +36,9 @@ private
    procedure Matches_Empty_Strings        (Regex : in Regular_Expression) with Inline;
    procedure Does_Not_Match_Empty_Strings (Regex : in Regular_Expression) with Inline;
 
-   procedure Matches        (Regex : in Regular_Expression;     Matching : in String) with Inline;
+   procedure Matches (Regex : in Regular_Expression; Matching : in String) with Inline;
+   procedure Matches (Regex : in Regular_Expression; Matching : in String; Expected_Id : in Natural) with Inline;
+
    procedure Does_Not_Match (Regex : in Regular_Expression; Not_Matching : in String) with Inline;
 
 end Regex_Test_Cases;

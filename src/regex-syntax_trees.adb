@@ -35,9 +35,14 @@ package body Regex.Syntax_Trees is
    begin
       Next_Id := Next_Id + 1;
 
-      if Retval.Node_Type = Single_Character then
-         Retval.Char := Root.Char;
-      end if;
+      case Retval.Node_Type is
+         when Single_Character =>
+            Retval.Char := Root.Char;
+         when Acceptance =>
+            Retval.Acceptance_Id := Root.Acceptance_Id;
+         when others =>
+            null;
+      end case;
 
       if Root.Left_Child /= null then
          Retval.Left_Child := Clone_Tree (Root.Left_Child, Next_Id);

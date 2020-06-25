@@ -63,6 +63,9 @@ package Regex.State_Machines is
       --  Outgoing transitions from this state:
       Transitions       : State_Machine_Transition_Vectors.Vector;
 
+      --  Acceptance ID (can be used by lexer IDs to recognize different tokens):
+      Acceptance_Id     : Natural;
+
       Marked, Accepting : Boolean := False;
    end record;
    package State_Machine_State_Vectors is new Ada.Containers.Vectors (

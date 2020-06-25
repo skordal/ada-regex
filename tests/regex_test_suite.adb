@@ -50,6 +50,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Newlines'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("syntax-tree-compile",
          Regex_Test_Cases.Test_Syntax_Tree_Compile'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("multiple-accept",
+         Regex_Test_Cases.Test_Multiple_Accept'Access));
 
       return Retval;
    end Test_Suite;

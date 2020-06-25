@@ -6,7 +6,11 @@ with Regex.Regular_Expressions; use Regex.Regular_Expressions;
 
 package Regex.Matchers is
 
-   --  Checks of a string matches a regular expression:
+   --  Checks if a string matches a regular expression:
+   function Matches (Input : in Regular_Expression; Query : in String; Match_Id : out Natural)
+      return Boolean;
+
+   --  Checks if a string matches a regular expression:
    function Matches (Input : in Regular_Expression; Query : in String) return Boolean;
 
    --  Gets the first part of a string that matches a regular expression:

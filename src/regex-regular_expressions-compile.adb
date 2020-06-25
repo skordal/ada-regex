@@ -37,6 +37,7 @@ begin
                Input_Symbols.Add (new Input_Symbol'(Symbol_Type => Any_Character));
             elsif Syntax_Node.Node_Type = Acceptance then
                Unmarked_State.Accepting := True;
+               Unmarked_State.Acceptance_Id := Syntax_Node.Acceptance_Id;
             end if;
          end loop;
 
