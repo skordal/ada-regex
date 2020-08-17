@@ -36,7 +36,7 @@ package body Regex.Matchers is
       end loop;
 
       if Current_State.Accepting then
-         Match_Id := Current_State.Acceptance_id;
+         Match_Id := Current_State.Acceptance_Id;
       end if;
 
       return Current_State.Accepting;

@@ -290,8 +290,6 @@ package body Regex_Test_Cases is
             Left_Child => Clone_Tree (First_Expression.Get_Syntax_Tree, Id_Counter),
             Right_Child => Clone_Tree (Second_Expression.Get_Syntax_Tree, Id_Counter));
          Test_Expr : constant Regular_Expression := Create (Combined_Tree);
-
-         Match_Id : Natural;
       begin
          Free_Recursively (Combined_Tree);
 
