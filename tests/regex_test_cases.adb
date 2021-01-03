@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2021 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 with Ada.Characters.Latin_1;
@@ -121,6 +121,17 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "?");
       Matches (Test_Expr, "-");
    end Test_Escape_Seqs;
+
+   procedure Test_Quotes (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("a""b""c");
+   begin
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "abc");
+      Does_Not_Match (Test_Expr, "a""");
+      Does_Not_Match (Test_Expr, "a""b""");
+      Matches (Test_Expr, "a""b""c");
+   end Test_Quotes;
 
    procedure Test_Single_Range (T : in out Test_Fixture) is
       pragma Unreferenced (T);

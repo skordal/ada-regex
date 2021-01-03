@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2021 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 with Regex_Test_Cases;
@@ -32,6 +32,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Any_Alternate'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("escaped-char",
          Regex_Test_Cases.Test_Escape_Seqs'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("quotes",
+         Regex_Test_Cases.Test_Quotes'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("single-range",
          Regex_Test_Cases.Test_Single_Range'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("multiple-ranges",
