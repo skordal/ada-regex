@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2021 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 project Regex is
@@ -9,7 +9,7 @@ project Regex is
 
    for Library_Dir use "lib";
    for Library_Name use "ada-regex";
-   for Library_Version use "libada-regex.so.0.1.4";
+   for Library_Version use "libada-regex.so.0.1.5";
    for Library_Kind use "dynamic";
 
    package Compiler is
