@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2021 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 with Ada.Unchecked_Deallocation;
@@ -52,7 +52,6 @@ package body Regex.Syntax_Trees is
          Retval.Right_Child := Clone_Tree (Root.Right_Child, Next_Id);
       end if;
 
-      Calculate_Followpos (Retval);
       return Retval;
    end Clone_Tree;
 

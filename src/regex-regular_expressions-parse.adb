@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2021 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output : in out Regular_Expression) is
@@ -104,9 +104,9 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
                                                                                Id => Output.Get_Next_Node_Id,
                                                                                Left_Child => Optional_Branch);
             Retval  : constant Syntax_Tree_Node_Access := Create_Node (Node_Type => Concatenation,
-                                                                     Id          => Output.Get_Next_Node_Id,
-                                                                     Left_Child  => Left,
-                                                                     Right_Child => Right);
+                                                                       Id          => Output.Get_Next_Node_Id,
+                                                                       Left_Child  => Left,
+                                                                       Right_Child => Right);
          begin
             Buffer.Discard_Next;
             return Retval;
@@ -366,8 +366,5 @@ begin
    begin
       Output.Syntax_Tree := Toplevel_Node;
    end;
-
-   --  Create the followpos() set for each node in the tree:
-   Calculate_Followpos (Output.Syntax_Tree);
 end Parse;
 

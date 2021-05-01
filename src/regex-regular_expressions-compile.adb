@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2021 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 separate (Regex.Regular_Expressions) procedure Compile (Output : in out Regular_Expression) is
@@ -8,6 +8,8 @@ separate (Regex.Regular_Expressions) procedure Compile (Output : in out Regular_
 begin
    Output.State_Machine_States.Append (Start_State);
    Output.Start_State := Start_State;
+
+   Calculate_Followpos (Output.Syntax_Tree);
 
    loop
       Unmarked_State := null;
