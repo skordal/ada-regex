@@ -20,6 +20,7 @@ package Regex_Test_Cases is
    procedure Test_Any_Alternate        (T : in out Test_Fixture);
    procedure Test_Escape_Seqs          (T : in out Test_Fixture);
    procedure Test_Quotes               (T : in out Test_Fixture);
+   procedure Test_Single_Quotes        (T : in out Test_Fixture);
    procedure Test_Single_Range         (T : in out Test_Fixture);
    procedure Test_Multiple_Ranges      (T : in out Test_Fixture);
    procedure Test_Ranges_And_Chars     (T : in out Test_Fixture);

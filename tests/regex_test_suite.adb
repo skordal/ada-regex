@@ -34,6 +34,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Escape_Seqs'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("quotes",
          Regex_Test_Cases.Test_Quotes'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("single-quotes",
+         Regex_Test_Cases.Test_Single_Quotes'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("single-range",
          Regex_Test_Cases.Test_Single_Range'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("multiple-ranges",
