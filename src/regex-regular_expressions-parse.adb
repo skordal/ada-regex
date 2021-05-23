@@ -191,10 +191,12 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
          if Retval.Node_Type = Single_Character then
             if Escaped then
                case Char is
-                  when 'r' =>
-                     Retval.Char := Ada.Characters.Latin_1.CR;
                   when 'n' =>
                      Retval.Char := Ada.Characters.Latin_1.LF;
+                  when 'r' =>
+                     Retval.Char := Ada.Characters.Latin_1.CR;
+                  when 't' =>
+                     Retval.Char := Ada.Characters.Latin_1.HT;
                   when others =>
                      Retval.Char := Char;
                end case;
@@ -331,7 +333,8 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
              C = '?' or
              C = '-' or
              C = 'r' or
-             C = 'n';
+             C = 'n' or
+             C = 't';
    end Is_Escapable;
 
    function Range_Contents (Range_Start, Range_End : in Character) return Character_Range_Array is
