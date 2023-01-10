@@ -52,6 +52,8 @@ package body Regex_Test_Suite is
          Regex_Test_Cases.Test_Partial_Matching'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("newlines",
          Regex_Test_Cases.Test_Newlines'Access));
+      Retval.Add_Test (Regex_Test_Caller.Create ("end-of-line-operator",
+         Regex_Test_Cases.Test_End_Of_Line_Operator'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("syntax-tree-compile",
          Regex_Test_Cases.Test_Syntax_Tree_Compile'Access));
       Retval.Add_Test (Regex_Test_Caller.Create ("multiple-accept",

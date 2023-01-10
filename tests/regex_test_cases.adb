@@ -106,7 +106,7 @@ package body Regex_Test_Cases is
 
    procedure Test_Escape_Seqs (T : in out Test_Fixture) is
       pragma Unreferenced (T);
-      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\||\?|\-");
+      Test_Expr : constant Regular_Expression := Create ("\.|\[|\]|\(|\)|\*|\+|\\|\||\?|\-|\$");
    begin
       Does_Not_Match_Empty_Strings (Test_Expr);
       Matches (Test_Expr, ".");
@@ -120,6 +120,7 @@ package body Regex_Test_Cases is
       Matches (Test_Expr, "|");
       Matches (Test_Expr, "?");
       Matches (Test_Expr, "-");
+      Matches (Test_Expr, "$");
    end Test_Escape_Seqs;
 
    procedure Test_Quotes (T : in out Test_Fixture) is
@@ -280,6 +281,21 @@ package body Regex_Test_Cases is
       Does_Not_Match (Test_Expr, "df" & Ada.Characters.Latin_1.CR);
       Matches (Test_Expr, "df" & Ada.Characters.Latin_1.CR & Ada.Characters.Latin_1.LF);
    end Test_Newlines;
+
+   procedure Test_End_Of_Line_Operator (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+      Test_Expr : constant Regular_Expression := Create ("ab$|a$c|ac\$");
+   begin
+      Does_Not_Match_Empty_Strings (Test_Expr);
+      Does_Not_Match (Test_Expr, "ab");
+      Does_Not_Match (Test_Expr, "abc");
+      Does_Not_Match (Test_Expr, "ac");
+      Does_Not_Match (Test_Expr, "ac" & Ada.Characters.Latin_1.LF);
+
+      Matches (Test_Expr, "ab" & Ada.Characters.Latin_1.LF);
+      Matches (Test_Expr, "a" & Ada.Characters.Latin_1.LF & "c");
+      Matches (Test_Expr, "ac$");
+   end Test_End_Of_Line_Operator;
 
    procedure Test_Syntax_Tree_Compile (T : in out Test_Fixture) is
       pragma Unreferenced (T);

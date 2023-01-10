@@ -29,6 +29,7 @@ package Regex_Test_Cases is
    procedure Test_Question_Operator    (T : in out Test_Fixture);
    procedure Test_Partial_Matching     (T : in out Test_Fixture);
    procedure Test_Newlines             (T : in out Test_Fixture);
+   procedure Test_End_Of_Line_Operator (T : in out Test_Fixture);
    procedure Test_Syntax_Tree_Compile  (T : in out Test_Fixture);
    procedure Test_Multiple_Accept      (T : in out Test_Fixture);
 

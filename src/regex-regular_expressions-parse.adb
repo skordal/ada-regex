@@ -200,6 +200,8 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
                   when others =>
                      Retval.Char := Char;
                end case;
+            elsif Char = '$' then
+               Retval.Char := Ada.Characters.Latin_1.LF; --  FIXME: The $ operator currently only expands to a newline
             else
                Retval.Char := Char;
             end if;
@@ -332,6 +334,7 @@ separate (Regex.Regular_Expressions) procedure Parse (Input : in String; Output 
              C = '+' or
              C = '?' or
              C = '-' or
+             C = '$' or
              C = 'r' or
              C = 'n' or
              C = 't';
