@@ -1,5 +1,5 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2023 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 with AUnit.Test_Caller;
@@ -12,13 +12,15 @@ package body Utilities_Test_Suite is
    function Test_Suite return AUnit.Test_Suites.Access_Test_Suite is
       Retval : constant AUnit.Test_Suites.Access_Test_Suite := new AUnit.Test_Suites.Test_Suite;
    begin
-      Retval.Add_Test (Utilities_Test_Caller.Create ("empty-set",
+      Retval.Add_Test (Utilities_Test_Caller.Create ("escape",
+         Utilities_Test_Cases.Test_Escape'Access));
+      Retval.Add_Test (Utilities_Test_Caller.Create ("sorted-set-empty",
          Utilities_Test_Cases.Test_Empty_Set'Access));
-      Retval.Add_Test (Utilities_Test_Caller.Create ("basic-ops",
+      Retval.Add_Test (Utilities_Test_Caller.Create ("sorted-set-basics",
          Utilities_Test_Cases.Test_Basic_Ops'Access));
-      Retval.Add_Test (Utilities_Test_Caller.Create ("assignment",
+      Retval.Add_Test (Utilities_Test_Caller.Create ("sorted-set-assignment",
          Utilities_Test_Cases.Test_Assignment'Access));
-      Retval.Add_Test (Utilities_Test_Caller.Create ("ordering",
+      Retval.Add_Test (Utilities_Test_Caller.Create ("sorted-set-ordering",
          Utilities_Test_Cases.Test_Ordering'Access));
       return Retval;
    end Test_Suite;

@@ -1,15 +1,25 @@
 --  Ada regular expression library
---  (c) Kristian Klomsten Skordal 2020 <kristian.skordal@wafflemail.net>
+--  (c) Kristian Klomsten Skordal 2020-2023 <kristian.skordal@wafflemail.net>
 --  Report bugs and issues on <https://github.com/skordal/ada-regex>
 
 with AUnit.Assertions;
 use AUnit.Assertions;
 
+with Regex.Utilities; use Regex.Utilities;
 with Regex.Utilities.Sorted_Sets;
 
 package body Utilities_Test_Cases is
 
    package Integer_Sets is new Regex.Utilities.Sorted_Sets (Element_Type => Integer);
+
+   procedure Test_Escape (T : in out Test_Fixture) is
+      pragma Unreferenced (T);
+
+      Test_String     : constant String := "abc()[]\|+-$*.?";
+      Expected_String : constant String := "abc\(\)\[\]\\\|\+\-\$\*\.\?";
+   begin
+      Assert (Expected_String = Escape (Test_String), "Escaped string does not escape all characters");
+   end Test_Escape;
 
    procedure Test_Empty_Set (T : in out Test_Fixture) is
       pragma Unreferenced (T);
