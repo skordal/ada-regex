@@ -9,7 +9,7 @@ project Regex is
 
    for Library_Dir use "lib";
    for Library_Name use "ada-regex";
-   for Library_Version use "libada-regex.so.0.1.6";
+   for Library_Version use "libada-regex.so.0.1.7";
    for Library_Kind use "dynamic";
 
    package Compiler is
